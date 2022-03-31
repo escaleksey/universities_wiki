@@ -1,0 +1,47 @@
+@import url(root.css);
+
+
+/* ------------- HEADER ------------- */
+
+.header {
+    background-color: var(--light_header_color);
+}
+
+.logo-img {
+    width: 100px;
+    height: 100px;
+}
+.links {
+    display: flex;
+    justify-content: space-between;
+}
+.nav-link {
+    font-size: 20px;
+    color: var(--light_link_color);
+    opacity: .75;
+    transition: opacity .1s;
+}
+
+.nav-link:hover {
+    color: var(--light_link_color);
+    opacity: 1;
+}
+
+/* ------------- MAIN ------------- */
+
+main {
+    min-height: 80vh;
+}
+
+/* ------------- FOOTER ------------- */
+
+.footer {
+    background-color: var(--light_footer_color);
+    padding: 40px 0;
+}
+
+.footer_content {
+    text-align: center;
+    font-size: 20px;
+    color: var(--light_text_color);
+}

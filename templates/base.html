@@ -1,0 +1,54 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIVERSITIES WIKI</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/styles/main.css">
+    
+</head>
+<body>
+
+<!-- ========================= HEADER ================ -->
+
+    <header class="header">
+        <div class="container">
+            <nav class="nav navbar">
+                <div class="logo">
+                    <a class="navbar-brand" href="#">
+                        <img class="logo-img" src="/static/img/logo/logo4.png" alt="">
+                    </a>
+                </div>
+                <div class="links">
+                    <a href="#" class="nav-link">Example1</a>
+                    <a href="#" class="nav-link">Example2</a>
+                </div>
+                <div class="account">
+                    <a class="btn btn-primary " href="/register">Зарегистрироваться</a>
+                    <a class="btn btn-success" href="/login">Войти</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+<!-- ========================= MAIN ================ -->
+
+    <main role="main" class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+<!-- ========================= FOOTER ================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer_content">
+                created by Vegetable Developers
+            </div>
+        </div>
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,31 @@
+@import url(../root.css);
+
+.index_content {
+    text-align: center;
+    padding: 300px 0;
+    color: var(--light_text_color);
+}
+
+.page_title {
+    font-size: 48px;
+}
+
+.search_block {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+.search_text_input {
+    min-width: 800px;
+    min-height: 50px;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.search_btn_input {
+    cursor: pointer;
+    min-width: 100px;
+    min-height: 50px;
+    background-color: #58807f;
+    color: var(--dark_text_color);
+    border-radius: 0px 10px 10px 0px;
+}
