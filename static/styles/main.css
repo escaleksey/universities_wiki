@@ -27,6 +27,22 @@
     opacity: 1;
 }
 
+.color_theme_block {
+    max-width: max-content;
+    float: right;
+    padding: 40px;
+}
+
+.color_theme_checkbox {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.color_theme_checkbox+label {
+    cursor: pointer;
+}
+
 /* ------------- MAIN ------------- */
 
 main {
