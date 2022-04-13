@@ -8,6 +8,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/universities')
+def universities():
+    return render_template('list_universities.html')
+
+
 def main():
     app.run()
 

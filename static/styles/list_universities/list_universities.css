@@ -1,0 +1,78 @@
+@import url(../root.css);
+
+.universities_content {
+    padding: 30px 0;
+    text-align: center;
+    color: var(--light_text_color);
+}
+
+.page_title {
+    font-size: 48px;
+}
+
+.search_block {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.search_text_input {
+    min-width: 700px;
+    min-height: 50px;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.search_btn_input {
+    cursor: pointer;
+    min-width: 100px;
+    min-height: 50px;
+    background-color: #58807f;
+    color: var(--dark_text_color);
+    border-radius: 0px 10px 10px 0px;
+}
+
+.content {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: var(--light_text_color);
+
+}
+
+.university_item {
+    width: 45%;
+    margin-left: 10px;
+    margin-top: 40px;
+    border: 10px solid #58807f;
+    border-radius: 10px;
+    box-shadow: 2px black;
+}
+
+.university_photo {
+    text-align: center;
+    width: 100%;
+    border-bottom: 10px solid #58807f;
+}
+
+.text_content {
+    padding: 10px 0;
+    color: var(--active_text_color);
+
+}
+
+.title {
+    text-transform: uppercase;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.cities_menu {
+    outline: none;
+    border: none;
+    margin-left: 10px;
+}
+
+.cities_menu-item {
+    border: 0px;
+}

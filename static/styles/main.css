@@ -1,10 +1,13 @@
 @import url(root.css);
 
+body {
+    font-family: 'Nunito', sans-serif;
+}
 
 /* ------------- HEADER ------------- */
 
 .header {
-    background-color: var(--light_header_color);
+    background-color: var(--active_header_color);
 }
 
 .logo-img {
@@ -17,13 +20,13 @@
 }
 .nav-link {
     font-size: 20px;
-    color: var(--light_link_color);
+    color: var(--active_link_color);
     opacity: .75;
     transition: opacity .1s;
 }
 
 .nav-link:hover {
-    color: var(--light_link_color);
+    color: var(--active_link_color);
     opacity: 1;
 }
 
@@ -52,12 +55,12 @@ main {
 /* ------------- FOOTER ------------- */
 
 .footer {
-    background-color: var(--light_footer_color);
+    background-color: var(--active_header_color);
     padding: 40px 0;
 }
 
 .footer_content {
     text-align: center;
     font-size: 20px;
-    color: var(--light_text_color);
+    color: var(--active_text_color);
 }
