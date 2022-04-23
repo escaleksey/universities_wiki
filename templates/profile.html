@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+    <style>
+        @import url(/static/styles/profile/profile.css);
+    </style>
+    <div class="profile_content">
+        <div class="personal_information">
+            <div class="avatar">
+                <img class="user_avatar" src="/static/img/icons/default_avatar.png" alt="">
+            </div>
+            <div class="text_information">
+                <div class="inner">
+                    <div class="inner_content">
+                        <div class="name">
+                            <span>Aleksey Kushnarev</span>
+                        </div>
+                        <div class="email">
+                            Почта: <span>Aleksey@mial.ru</span>
+                        </div>
+                        <div class="age">
+                            Возраст: <span>17</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="favorite_universities">
+            <div class="content">
+                <div class="university_item">
+                    <a href="/university_page/0">
+                        <img src="https://www.newsko.ru/media/3185656/nochnaya-zhizn-pgniu.jpg" alt="" class="university_photo">
+                        <div class="text_content">
+                            <div class="title">Пермский Национальный Иследовательский университет</div>
+                            <div class="info"> </div>
+                        </div>
+                    </a>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}
