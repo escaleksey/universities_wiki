@@ -1,9 +1,7 @@
-import datetime
+from flask import Flask, render_template, redirect
+from flask_login import LoginManager, login_user
 
-from flask import Flask, render_template, redirect, request, abort
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-
-from utils.db_api.forms.user import RegisterForm, LoginForm
+from utils.forms.user import RegisterForm, LoginForm
 from utils.db_api.data.users import User
 from utils.db_api.data import db_session
 
