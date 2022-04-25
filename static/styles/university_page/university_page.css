@@ -1,0 +1,78 @@
+@import url(../root.css);
+
+
+.university_header {
+    margin-top: 30px;
+    width: 100%;
+    background-color: #58807f;
+    border-radius: 10px;
+    color: var(--dark_text_color);
+    padding: 40px 0;
+    text-align: center;
+    
+}
+
+.page_title {
+    text-transform: uppercase;
+    font-size: 35px;
+}
+
+.faculties {
+    padding: 40px 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.faculties_item {
+    width: 100%;
+    padding: 10px 5px;
+
+    border-top: 3px solid var(--active_header_color);
+}
+
+.faculties_item:last-child {
+    border-bottom: 3px solid var(--active_header_color);
+}
+
+.faculties_item-content {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    font-size: 17px;
+}
+
+.faculties_item-content:first-child {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+.name {
+    width: 40%;
+    font-size: 20px;
+    
+}
+.discription {
+    width: 40%;
+}
+
+.points {
+    width: 20%;
+}
+
+.price {
+    width: 20%;
+}
+
+.subjects {
+    width: 20%;
+}
+
+.subject {
+    width: 100%;
+    display: block;
+}
+
+.value {
+    font-style: italic;
+}
