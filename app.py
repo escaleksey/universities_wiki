@@ -6,8 +6,8 @@ from utils.db_api.data.users import User
 from utils.db_api.data import db_session
 
 app = Flask(__name__)
-'''login_manager = LoginManager()
-login_manager.init_app(app)'''
+login_manager = LoginManager()
+login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'universities_wiki_key'
 
 
@@ -39,7 +39,7 @@ def profile(user_id):
     return render_template('profile.html', **params)
 
 
-'''''@app.route('/login')
+@app.route('/login')
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -72,13 +72,13 @@ def reqister():
         db_sess.add(user)
         db_sess.commit()
         return redirect('/login')
-    return render_template('register.html', title='Регистрация', form=form)'''
+    return render_template('register.html', title='Регистрация', form=form)
 
 
 def main():
     # TODO: create database
-    #db_file = ""
-    #db_session.global_init(db_file)
+    db_file = ""
+    db_session.global_init(db_file)
     app.run(host="127.0.0.1", port=8080)
 
 
