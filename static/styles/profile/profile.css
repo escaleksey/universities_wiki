@@ -1,0 +1,86 @@
+@import url(../root.css);
+
+
+.profile_content {
+    padding: 30px 0;
+}
+
+.personal_information {
+    display: flex;
+    padding: 30px 0;
+}
+
+.avatar {
+    margin-right: 50px;
+}
+
+.user_avatar {
+    width: 240px;
+    height: 240px;
+}
+
+.text_information {
+    display: block;
+    font-size: 20px;
+}
+
+.inner {
+    width: 100%;
+    height: 100%;
+    position: relative; 
+}
+.inner_content { 
+    position: absolute;
+    width: max-content;
+    top: 50%;
+    left: 0;
+    transform: translate3d(0, -50%, 0); 
+}
+
+.name {
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.favorite_universities {
+    border-top: 1px solid #000;
+}
+
+
+
+.content {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: var(--active_text_color);
+
+}
+
+.university_item {
+    width: 45%;
+    margin-left: 10px;
+    margin-top: 40px;
+    border: 10px solid #58807f;
+    border-radius: 10px;
+    box-shadow: 2px black;
+}
+
+.university_photo {
+    text-align: center;
+    width: 100%;
+    border-bottom: 10px solid #58807f;
+}
+
+.text_content {
+    padding: 10px 5px;
+    color: var(--active_text_color);
+
+}
+
+.title {
+    text-transform: uppercase;
+    font-size: 17px;
+    font-weight: 700;
+}

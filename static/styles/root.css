@@ -9,4 +9,10 @@
     --dark_footer_color: #242430;
     --dark_link_color: #e6eaed;
     --dark_text_color: #e6eaed;
+
+    /* active colors */
+    --active_header_color: var(--light_header_color);
+    --active_footer_color: var(--light_footer_color);
+    --active_text_color: var(--light_text_color);
+    --active_link_color: var(--light_link_color);
 }
