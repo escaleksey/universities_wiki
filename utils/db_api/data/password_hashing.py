@@ -1,7 +1,6 @@
 import hashlib
 import os
-from . import users, db_session
-from .users import User
+
 
 
 def hashing_password(password: str) -> tuple:

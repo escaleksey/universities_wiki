@@ -1,14 +1,23 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, make_response, jsonify
 from flask_login import LoginManager, login_user
 from utils.forms import RegisterForm, LoginForm
 from utils.db_api import User
 from utils.db_api import db_session
+from flask_restful import reqparse, abort, Api, Resource
+from resources import UniversityResource
+import requests
 
 
 app = Flask(__name__)
-login_manager = LoginManager()
-login_manager.init_app(app)
+api = Api(app)
+#login_manager = LoginManager()
+#login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'universities_wiki_key'
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 
 @app.route('/')
@@ -25,10 +34,9 @@ def universities(city):
     return render_template('list_universities.html', **params)
 
 
-@app.route('/university/<int:user_id>')
-def university(user_id):
-    params = {}
-    params['user_id'] = user_id
+@app.route('/university/<int:university_id>')
+def university(university_id):
+    params = requests.get(f"http://127.0.0.1:8080/api/university/{university_id}").json()
     return render_template('university_page.html', **params)
 
 
@@ -39,7 +47,7 @@ def profile(user_id):
     return render_template('profile.html', **params)
 
 
-@app.route('/login')
+'''@app.route('/login')
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -72,13 +80,14 @@ def register():
         db_sess.add(user)
         db_sess.commit()
         return redirect('/login')
-    return render_template('register.html', title='Регистрация', form=form)
+    return render_template('register.html', title='Регистрация', form=form)'''
 
 
 def main():
     # TODO: create database
-    db_file = ""
+    db_file = "db/database.db"
     db_session.global_init(db_file)
+    api.add_resource(UniversityResource, "/api/university/<int:university_id>")
     app.run(host="127.0.0.1", port=8080)
 
 
