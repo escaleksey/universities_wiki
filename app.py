@@ -1,9 +1,9 @@
 from flask import Flask, render_template, redirect
 from flask_login import LoginManager, login_user
+from utils.forms import RegisterForm, LoginForm
+from utils.db_api import User
+from utils.db_api import db_session
 
-from utils.forms.user import RegisterForm, LoginForm
-from utils.db_api.data.users import User
-from utils.db_api.data import db_session
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -53,7 +53,7 @@ def login():
 
 
 @app.route('/register', methods=['GET', 'POST'])
-def reqister():
+def register():
     form = RegisterForm()
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:

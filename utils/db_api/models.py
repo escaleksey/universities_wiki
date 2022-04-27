@@ -12,9 +12,9 @@ class User(db.Model):
     name = db.Column(db.String)
     age = db.Column(db.Integer)
     email = db.Column(db.String)
-    salt = db.Column(db.LargeBinary, nullable=False)
+    #salt = db.Column(db.LargeBinary, nullable=False)
     key = db.Column(db.String, nullable=False)
-    avatar = db.Column(db.LargeBinary, nullable=False)
+    #avatar = db.Column(db.LargeBinary, nullable=False)
     universities = db.relationship("University",
                                    secondary=association_table)
 
