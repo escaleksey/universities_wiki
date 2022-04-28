@@ -4,7 +4,7 @@ from utils.forms import RegisterForm, LoginForm
 from utils.db_api import User
 from utils.db_api import db_session
 from flask_restful import reqparse, abort, Api, Resource
-from resources import UniversityResource
+from resources import UniversityResource, FacultyListResource, UniversityListResource
 import requests
 
 
@@ -28,15 +28,16 @@ def index():
 
 @app.route('/universities/<city>')
 def universities(city):
-    params = {
-        'city': city
-    }
+    params = {}
+    params['universities'] = requests.get(f"http://127.0.0.1:8080/api/university_list/{city}").json()
     return render_template('list_universities.html', **params)
 
 
 @app.route('/university/<int:university_id>')
 def university(university_id):
-    params = requests.get(f"http://127.0.0.1:8080/api/university/{university_id}").json()
+    params = {}
+    params['university'] = requests.get(f"http://127.0.0.1:8080/api/university/{university_id}").json()
+    params['faculties'] = requests.get(f"http://127.0.0.1:8080/api/faculty/{university_id}").json()
     return render_template('university_page.html', **params)
 
 
@@ -88,6 +89,8 @@ def main():
     db_file = "db/database.db"
     db_session.global_init(db_file)
     api.add_resource(UniversityResource, "/api/university/<int:university_id>")
+    api.add_resource(FacultyListResource, "/api/faculty/<int:university_id>")
+    api.add_resource(UniversityListResource, "/api/university_list/<city>")
     app.run(host="127.0.0.1", port=8080)
 
 

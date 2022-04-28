@@ -5,66 +5,33 @@
     </style>
     <div class="content">
         <div class="university_header">
-            <h1 class="page_title">{{title}}</h1>
+            <h1 class="page_title">{{university['title']}}</h1>
             <div class="map">
                 place for map
             </div>
         </div>
         <div class="faculties">
-            <div class="faculties_item">
-                <div class="faculties_item-content">
-                    <div class="name"><span>Информационная безопасность</span></div>
-                    <div class="points">Баллы</div>
-                    <div class="price">Цена</div>
-                    <div class="subjects">Предметы</div>
-                </div>
-                <div class="faculties_item-content">
-                    <div class="discription"><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, voluptas!</span></div>
-                    <div class="points">от <span class="value">160</span></div>
-                    <div class="price">от <span class="value">70000</span></div>
-                    <div class="subjects">
-                        <span class="subject">Математика</span>
-                        <span class="subject">Русский Язык</span>
-                        <span class="subject">Информатика/Физика</span>
+            {%for value in faculties.values()%}
+                <div class="faculties_item">
+                    <div class="faculties_item-content">
+                        <div class="name"><span>{{value['name']}}</span></div>
+                        <div class="points">Баллы</div>
+                        <div class="price">Цена</div>
+                        <div class="subjects">Предметы</div>
+                    </div>
+                    <div class="faculties_item-content">
+                        <div class="discription"><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, voluptas!</span></div>
+                        <div class="points">от <span class="value">{{value['points']}}</span></div>
+                        <div class="price">от <span class="value">{{value['price']}}</span></div>
+                        <div class="subjects">
+                            <span class="subject">Математика</span>
+                            <span class="subject">Русский Язык</span>
+                            <span class="subject">Информатика/Физика</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="faculties_item">
-                <div class="faculties_item-content">
-                    <div class="name"><span>Информационная безопасность</span></div>
-                    <div class="points">Баллы</div>
-                    <div class="price">Цена</div>
-                    <div class="subjects">Предметы</div>
-                </div>
-                <div class="faculties_item-content">
-                    <div class="discription"><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, voluptas!</span></div>
-                    <div class="points">от <span class="value">160</span></div>
-                    <div class="price">от <span class="value">70000</span></div>
-                    <div class="subjects">
-                        <span class="subject">Математика</span>
-                        <span class="subject">Русский Язык</span>
-                        <span class="subject">Информатика/Физика</span>
-                    </div>
-                </div>
-            </div>
-            <div class="faculties_item">
-                <div class="faculties_item-content">
-                    <div class="name"><span>Информационная безопасность</span></div>
-                    <div class="points">Баллы</div>
-                    <div class="price">Цена</div>
-                    <div class="subjects">Предметы</div>
-                </div>
-                <div class="faculties_item-content">
-                    <div class="discription"><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, voluptas!</span></div>
-                    <div class="points">от <span class="value">160</span></div>
-                    <div class="price">от <span class="value">70000</span></div>
-                    <div class="subjects">
-                        <span class="subject">Математика</span>
-                        <span class="subject">Русский Язык</span>
-                        <span class="subject">Информатика/Физика</span>
-                    </div>
-                </div>
-            </div>
+            {%endfor%}
+
         </div>
     </div>
 {% endblock %}
