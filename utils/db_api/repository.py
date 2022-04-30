@@ -1,5 +1,5 @@
 from config import db
-from models import User, University, Faculty
+from utils.db_api.models import User, University, Faculty
 import json
 
 

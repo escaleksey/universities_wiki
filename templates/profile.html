@@ -12,13 +12,13 @@
                 <div class="inner">
                     <div class="inner_content">
                         <div class="name">
-                            <span>Aleksey Kushnarev</span>
+                            <span> {{ name }} </span>
                         </div>
                         <div class="email">
-                            Почта: <span>Aleksey@mial.ru</span>
+                            Почта: <span> {{ email }} </span>
                         </div>
                         <div class="age">
-                            Возраст: <span>17</span>
+                            Возраст: <span> {{ age }} </span>
                         </div>
                     </div>
                 </div>
@@ -27,15 +27,17 @@
         </div>
         <div class="favorite_universities">
             <div class="content">
+                {% for item in universities %}
                 <div class="university_item">
                     <a href="/university_page/0">
-                        <img src="https://www.newsko.ru/media/3185656/nochnaya-zhizn-pgniu.jpg" alt="" class="university_photo">
+<!--                        <img src="https://www.newsko.ru/media/3185656/nochnaya-zhizn-pgniu.jpg" alt="" class="university_photo">-->
                         <div class="text_content">
-                            <div class="title">Пермский Национальный Иследовательский университет</div>
+                            <div class="title">{{ item[0] }}</div>
                             <div class="info"> </div>
                         </div>
                     </a>
                 </div>
+                {% endfor %}
                 
                 
             </div>

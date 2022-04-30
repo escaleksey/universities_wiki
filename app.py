@@ -1,13 +1,14 @@
 import logging
 
 from flask import Flask, render_template, redirect, make_response, jsonify
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from utils.forms import RegisterForm, LoginForm
-from utils.db_api import User
+from utils.db_api import User, University
 from utils.db_api import db_session
 from flask_restful import reqparse, abort, Api, Resource
 from resources import UniversityResource
 import requests
+import sqlite3
 
 
 app = Flask(__name__)
@@ -15,6 +16,12 @@ api = Api(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'universities_wiki_key'
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    db_sess = db_session.create_session()
+    return db_sess.query(User).filter(User.id == user_id).first()
 
 
 @app.errorhandler(404)
@@ -42,10 +49,28 @@ def university(university_id):
     return render_template('university_page.html', **params)
 
 
-@app.route('/profile/<int:user_id>')
-def profile(user_id):
-    params = {}
-    params['user_id'] = user_id
+@app.route('/profile')
+def profile():
+    user_id = current_user.id
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == user_id).first()
+
+    # TODO: Аня переделай!!!
+    connection = sqlite3.connect("db/database.db")
+    cursor = connection.cursor()
+    universities_id = cursor.execute(f"""SELECT university_id FROM users_universities WHERE 
+                                        user_id = '{user_id}'""").fetchall()
+    universities_id = [str(elem[0]) for elem in universities_id]
+    universities_data = cursor.execute(f"""SELECT name FROM university 
+                                       WHERE id IN ({', '.join(universities_id)});""").fetchall()
+
+    params = {
+        'user_id': user_id,
+        'name': user.name,
+        'email': user.email,
+        'age': user.age,
+        'universities': universities_data
+    }
     return render_template('profile.html', **params)
 
 
@@ -55,7 +80,6 @@ def login():
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.email == form.email.data).first()
-        print(user)
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             return redirect("/")
@@ -77,13 +101,20 @@ def register():
         user = User(
             name=form.name.data,
             email=form.email.data,
-            about=form.about.data
+            age=form.age.data
         )
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
         return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
 
 
 def main():

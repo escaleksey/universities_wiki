@@ -1,6 +1,7 @@
-from flask import jsonify, render_template
-from flask_restful import abort, reqparse, Resource
-from utils.db_api import db_session, University
+from flask import jsonify
+from flask_restful import abort, Resource
+from utils.db_api import db_session
+from utils.db_api.models import University
 
 
 def abort_if_job_not_found(university_id):

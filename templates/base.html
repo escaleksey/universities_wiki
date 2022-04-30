@@ -40,10 +40,17 @@
                     <a href="/universities/perm" class="nav-link">Вузы</a>
                     <a href="#" class="nav-link">Example2</a>
                 </div>
-                <div class="account">
-                    <a class="btn btn-primary " href="/register">Зарегистрироваться</a>
-                    <a class="btn btn-success" href="/login">Войти</a>
+                {% if current_user.is_authenticated %}
+                <div>
+                    <a class="navbar-brand" href="/profile">{{ current_user.name }}</a>
+                    <a class="navbar-brand" style="color: #ff1a1a;" href="/logout">Выйти</a>
                 </div>
+                {% else %}
+                <div>
+                    <a class="navbar-brand" style="color: #0066ff;" href="/register">Зарегистрироваться</a>
+                    <a class="navbar-brand" style="color: #00cc00;" href="/login">Войти</a>
+                </div>
+                {% endif %}
             </nav>
         </div>
     </header>
