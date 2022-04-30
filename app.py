@@ -1,3 +1,5 @@
+import logging
+
 from flask import Flask, render_template, redirect, make_response, jsonify
 from flask_login import LoginManager, login_user
 from utils.forms import RegisterForm, LoginForm
@@ -10,8 +12,8 @@ import requests
 
 app = Flask(__name__)
 api = Api(app)
-#login_manager = LoginManager()
-#login_manager.init_app(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'universities_wiki_key'
 
 
@@ -47,12 +49,13 @@ def profile(user_id):
     return render_template('profile.html', **params)
 
 
-'''@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.email == form.email.data).first()
+        print(user)
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             return redirect("/")
@@ -80,11 +83,10 @@ def register():
         db_sess.add(user)
         db_sess.commit()
         return redirect('/login')
-    return render_template('register.html', title='Регистрация', form=form)'''
+    return render_template('register.html', title='Регистрация', form=form)
 
 
 def main():
-    # TODO: create database
     db_file = "db/database.db"
     db_session.global_init(db_file)
     api.add_resource(UniversityResource, "/api/university/<int:university_id>")
