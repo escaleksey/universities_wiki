@@ -2,13 +2,13 @@ import logging
 
 from flask import Flask, render_template, redirect, make_response, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-
+from sqlalchemy import delete, insert
 from utils.db_api.models import association_table
 from utils.forms import RegisterForm, LoginForm
 from utils.db_api import User, University
 from utils.db_api import db_session
 from flask_restful import reqparse, abort, Api, Resource
-from resources import UniversityResource
+from resources import UniversityResource, FacultyListResource, UniversityListResource
 import requests
 import sqlite3
 
@@ -39,28 +39,30 @@ def index():
 
 @app.route('/universities/<city>')
 def universities(city):
-    params = {
-        'city': city
-    }
+    params = {}
+    params['universities'] = requests.get(f"http://127.0.0.1:8080/api/university_list/{city}").json()
     return render_template('list_universities.html', **params)
 
 
 @app.route('/university/like/<int:university_id>')
 def like(university_id):
-    connection = sqlite3.connect("db/database.db")
-    cursor = connection.cursor()
-    cursor.execute(f"""INSERT INTO users_universities VALUES('{current_user.id}', '{university_id}')""")
-    connection.commit()
+    session = db_session.create_session()
+    user = session.query(User).filter(User.id == current_user.id).first()
+    current_university = session.query(University).filter(University.id == university_id).first()
+    user.universities.append(current_university)
+    session.commit()
+    session.close()
     return redirect(f'/university/{university_id}')
 
 
 @app.route('/university/unlike/<int:university_id>')
 def unlike(university_id):
-    connection = sqlite3.connect("db/database.db")
-    cursor = connection.cursor()
-    cursor.execute(f"""DELETE FROM users_universities
-            WHERE user_id = '{current_user.id}' and university_id = '{university_id}'""")
-    connection.commit()
+    session = db_session.create_session()
+    user = session.query(User).filter(User.id == current_user.id).first()
+    current_university = session.query(University).filter(University.id == university_id).first()
+    user.universities.remove(current_university)
+    session.commit()
+    session.close()
     return redirect(f'/university/{university_id}')
 
 
@@ -70,34 +72,20 @@ def university(university_id):
     if 'message' in params:
         return render_template('university_page.html', **params)
 
-    # TODO: Аня переделай!!!
-    connection = sqlite3.connect("db/database.db")
-    cursor = connection.cursor()
-    faculties_data = cursor.execute(f"""SELECT name, points, price FROM faculty
-                                         WHERE university_id = '{university_id}'""").fetchall()
+    params['faculties'] = requests.get(f"http://127.0.0.1:8080/api/faculty/{university_id}").json()
 
     if current_user.is_authenticated:
-        # TODO: Аня переделай!!!
-        universities_id = cursor.execute(f"""SELECT university_id FROM users_universities WHERE 
-                                                user_id = '{current_user.id}'""").fetchall()
-        universities_id = [elem[0] for elem in universities_id]
+        session = db_session.create_session()
+        universities_id = []
+        result = session.query(User).filter(User.id == current_user.id).first()
+        for elem in result.universities:
+            universities_id.append(elem.id)
         if university_id in universities_id:
             params['liked'] = {'value': True, 'link': f'unlike/{university_id}'}
         else:
             params['liked'] = {'value': False, 'link': f'like/{university_id}'}
 
-    params['faculties'] = list()
-    for elem in faculties_data:
-        elem = {
-            'title': elem[0],
-            'points': elem[1],
-            'price': elem[2],
-            # TODO: Спарсить описание и предметы факультетов
-            'description': 'description',
-            'subjects': ['subject_1', 'subject_2', 'subject_3']
-        }
-        params['faculties'].append(elem)
-
+        session.close()
     return render_template('university_page.html', **params)
 
 
@@ -169,6 +157,8 @@ def main():
     db_file = "db/database.db"
     db_session.global_init(db_file)
     api.add_resource(UniversityResource, "/api/university/<int:university_id>")
+    api.add_resource(FacultyListResource, "/api/faculty/<int:university_id>")
+    api.add_resource(UniversityListResource, "/api/university_list/<city>")
     app.run(host="127.0.0.1", port=8080)
 
 

@@ -23,10 +23,11 @@
         {% endif %}
         </div>
         <div class="faculties">
-            {% for elem in faculties %}
+
+            {% for elem in faculties.values() %}
             <div class="faculties_item">
                 <div class="faculties_item-content">
-                    <div class="name"><span>{{ elem['title'] }}</span></div>
+                    <div class="name"><span>{{ elem['name'] }}</span></div>
                     <div class="points">Баллы</div>
                     <div class="price">Цена</div>
                     <div class="subjects">Предметы</div>

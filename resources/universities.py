@@ -23,6 +23,23 @@ class UniversityResource(Resource):
             # TODO: Спарсить адреса универов
             'address': 'address',
         }
-        print(u1)
         json = jsonify(u1)
+        session.close()
+        return json
+
+
+class UniversityListResource(Resource):
+    def get(self, city):
+        # abort_if_job_not_found(city)
+        session = db_session.create_session()
+        university = session.query(University).where(University.city == city).all()
+        u1 = {}
+        for i in range(len(university)):
+            university_dict = university[i].__dict__
+            u1[i] = {
+                'id': university_dict['id'],
+                'title': university_dict['name']
+            }
+        json = jsonify(u1)
+        session.close()
         return json
