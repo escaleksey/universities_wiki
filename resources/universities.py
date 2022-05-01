@@ -17,8 +17,12 @@ class UniversityResource(Resource):
         session = db_session.create_session()
         university = session.query(University).get(university_id)
         university = university.__dict__
-        u1 = {'title': university['name'],
-              'city': university['city']}
+        u1 = {
+            'title': university['name'],
+            'city': university['city'],
+            # TODO
+            'address': 'address'
+        }
         print(u1)
         json = jsonify(u1)
         return json

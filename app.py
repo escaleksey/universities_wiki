@@ -46,6 +46,27 @@ def universities(city):
 @app.route('/university/<int:university_id>')
 def university(university_id):
     params = requests.get(f"http://127.0.0.1:8080/api/university/{university_id}").json()
+    if 'message' in params:
+        return render_template('university_page.html', **params)
+
+    # TODO: Аня переделай!!!
+    connection = sqlite3.connect("db/database.db")
+    cursor = connection.cursor()
+    faculties_data = cursor.execute(f"""SELECT name, points, price FROM faculty
+                                         WHERE university_id = '{university_id}'""").fetchall()
+
+    params['faculties'] = list()
+    for elem in faculties_data:
+        elem = {
+            'title': elem[0],
+            'points': elem[1],
+            'price': elem[2],
+            # TODO
+            'description': 'description',
+            'subjects': ['subject_1', 'subject_2', 'subject_3']
+        }
+        params['faculties'].append(elem)
+
     return render_template('university_page.html', **params)
 
 
