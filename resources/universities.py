@@ -20,8 +20,8 @@ class UniversityResource(Resource):
         u1 = {
             'title': university['name'],
             'city': university['city'],
-            # TODO
-            'address': 'address'
+            # TODO: Спарсить адреса
+            'address': 'address',
         }
         print(u1)
         json = jsonify(u1)

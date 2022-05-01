@@ -27,12 +27,12 @@
         </div>
         <div class="favorite_universities">
             <div class="content">
-                {% for item in universities %}
+                {% for elem in universities %}
                 <div class="university_item">
-                    <a href="/university_page/0">
+                    <a href={{ elem['link'] }}>
 <!--                        <img src="https://www.newsko.ru/media/3185656/nochnaya-zhizn-pgniu.jpg" alt="" class="university_photo">-->
                         <div class="text_content">
-                            <div class="title">{{ item[0] }}</div>
+                            <div class="title">{{ elem['title'] }}</div>
                             <div class="info"> </div>
                         </div>
                     </a>

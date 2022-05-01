@@ -2,6 +2,8 @@ import logging
 
 from flask import Flask, render_template, redirect, make_response, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+
+from utils.db_api.models import association_table
 from utils.forms import RegisterForm, LoginForm
 from utils.db_api import User, University
 from utils.db_api import db_session
@@ -43,6 +45,25 @@ def universities(city):
     return render_template('list_universities.html', **params)
 
 
+@app.route('/university/like/<int:university_id>')
+def like(university_id):
+    connection = sqlite3.connect("db/database.db")
+    cursor = connection.cursor()
+    cursor.execute(f"""INSERT INTO users_universities VALUES('{current_user.id}', '{university_id}')""")
+    connection.commit()
+    return redirect(f'/university/{university_id}')
+
+
+@app.route('/university/unlike/<int:university_id>')
+def unlike(university_id):
+    connection = sqlite3.connect("db/database.db")
+    cursor = connection.cursor()
+    cursor.execute(f"""DELETE FROM users_universities
+            WHERE user_id = '{current_user.id}' and university_id = '{university_id}'""")
+    connection.commit()
+    return redirect(f'/university/{university_id}')
+
+
 @app.route('/university/<int:university_id>')
 def university(university_id):
     params = requests.get(f"http://127.0.0.1:8080/api/university/{university_id}").json()
@@ -55,13 +76,23 @@ def university(university_id):
     faculties_data = cursor.execute(f"""SELECT name, points, price FROM faculty
                                          WHERE university_id = '{university_id}'""").fetchall()
 
+    if current_user.is_authenticated:
+        # TODO: Аня переделай!!!
+        universities_id = cursor.execute(f"""SELECT university_id FROM users_universities WHERE 
+                                                user_id = '{current_user.id}'""").fetchall()
+        universities_id = [elem[0] for elem in universities_id]
+        if university_id in universities_id:
+            params['liked'] = {'value': True, 'link': f'unlike/{university_id}'}
+        else:
+            params['liked'] = {'value': False, 'link': f'like/{university_id}'}
+
     params['faculties'] = list()
     for elem in faculties_data:
         elem = {
             'title': elem[0],
             'points': elem[1],
             'price': elem[2],
-            # TODO
+            # TODO: Спарсить описание и предметы
             'description': 'description',
             'subjects': ['subject_1', 'subject_2', 'subject_3']
         }
@@ -82,8 +113,9 @@ def profile():
     universities_id = cursor.execute(f"""SELECT university_id FROM users_universities WHERE 
                                         user_id = '{user_id}'""").fetchall()
     universities_id = [str(elem[0]) for elem in universities_id]
-    universities_data = cursor.execute(f"""SELECT name FROM university 
+    universities_data = cursor.execute(f"""SELECT id, name FROM university 
                                        WHERE id IN ({', '.join(universities_id)});""").fetchall()
+    universities_data = [{'title': elem[1], 'link': f"/university/{elem[0]}"} for elem in universities_data]
 
     params = {
         'user_id': user_id,

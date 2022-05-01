@@ -10,6 +10,18 @@
                 {{ address }}
             </div>
         </div>
+        <div>
+        {% if current_user.is_authenticated %}
+            <br>
+            <div>
+                {% if liked['value'] %}
+                    <a class="navbar-brand" style="color: #58807f" href={{ liked['link'] }}>Добавлено в избранное</a>
+                {% else %}
+                    <a class="navbar-brand" style="color: #58807f" href={{ liked['link'] }}>Добавить в избранное</a>
+                {% endif %}
+            </div>
+        {% endif %}
+        </div>
         <div class="faculties">
             {% for elem in faculties %}
             <div class="faculties_item">
