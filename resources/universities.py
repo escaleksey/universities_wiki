@@ -20,7 +20,7 @@ class UniversityResource(Resource):
         u1 = {
             'title': university['name'],
             'city': university['city'],
-            # TODO: Спарсить адреса
+            # TODO: Спарсить адреса универов
             'address': 'address',
         }
         print(u1)

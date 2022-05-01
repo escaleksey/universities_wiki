@@ -92,7 +92,7 @@ def university(university_id):
             'title': elem[0],
             'points': elem[1],
             'price': elem[2],
-            # TODO: Спарсить описание и предметы
+            # TODO: Спарсить описание и предметы факультетов
             'description': 'description',
             'subjects': ['subject_1', 'subject_2', 'subject_3']
         }
@@ -110,8 +110,7 @@ def profile():
 
     result = db_sess.query(User).filter(User.id == user_id).first()
     for elem in result.universities:
-        universities_data.append(elem.name)
-
+        universities_data.append({'title': elem.name, 'link': f"/university/{elem.id}"})
 
     params = {
         'user_id': user_id,
