@@ -103,19 +103,15 @@ def university(university_id):
 
 @app.route('/profile')
 def profile():
+    universities_data = []
     user_id = current_user.id
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.id == user_id).first()
 
-    # TODO: Аня переделай!!!
-    connection = sqlite3.connect("db/database.db")
-    cursor = connection.cursor()
-    universities_id = cursor.execute(f"""SELECT university_id FROM users_universities WHERE 
-                                        user_id = '{user_id}'""").fetchall()
-    universities_id = [str(elem[0]) for elem in universities_id]
-    universities_data = cursor.execute(f"""SELECT id, name FROM university 
-                                       WHERE id IN ({', '.join(universities_id)});""").fetchall()
-    universities_data = [{'title': elem[1], 'link': f"/university/{elem[0]}"} for elem in universities_data]
+    result = db_sess.query(User).filter(User.id == user_id).first()
+    for elem in result.universities:
+        universities_data.append(elem.name)
+
 
     params = {
         'user_id': user_id,
