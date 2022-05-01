@@ -3,7 +3,7 @@ import logging
 from flask import Flask, render_template, redirect, make_response, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from utils.forms import RegisterForm, LoginForm
-from utils.db_api import User, University
+from utils.db_api import User, University, association_table
 from utils.db_api import db_session
 from flask_restful import reqparse, abort, Api, Resource
 from resources import UniversityResource
@@ -51,18 +51,15 @@ def university(university_id):
 
 @app.route('/profile')
 def profile():
+    universities_data = []
     user_id = current_user.id
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.id == user_id).first()
 
-    # TODO: Аня переделай!!!
-    connection = sqlite3.connect("db/database.db")
-    cursor = connection.cursor()
-    universities_id = cursor.execute(f"""SELECT university_id FROM users_universities WHERE 
-                                        user_id = '{user_id}'""").fetchall()
-    universities_id = [str(elem[0]) for elem in universities_id]
-    universities_data = cursor.execute(f"""SELECT name FROM university 
-                                       WHERE id IN ({', '.join(universities_id)});""").fetchall()
+    result = db_sess.query(User).filter(User.id == user_id).first()
+    for elem in result.universities:
+        universities_data.append(elem.name)
+
 
     params = {
         'user_id': user_id,
@@ -121,7 +118,7 @@ def main():
     db_file = "db/database.db"
     db_session.global_init(db_file)
     api.add_resource(UniversityResource, "/api/university/<int:university_id>")
-    app.run(host="127.0.0.1", port=8080)
+    app.run(host="127.0.0.1", port=8000)
 
 
 if __name__ == '__main__':
