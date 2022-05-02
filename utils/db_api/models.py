@@ -38,7 +38,6 @@ class University(db.Model):
     faculties = db.relationship('Faculty', backref='university')
 
 
-
 class Faculty(db.Model):
     __tablename__ = "faculty"
     __table_args__ = {'extend_existing': True}
