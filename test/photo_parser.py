@@ -32,20 +32,21 @@ def get_image_link(text):
     return images_results[0]['original']
 
 
-db_file = "../db/database.db"
-db_session.global_init(db_file)
-session = db_session.create_session()
-universities = session.query(University).all()
-connection = sqlite3.connect(db_file)
-cursor = connection.cursor()
+def full_data_base():
+    db_file = "../db/database.db"
+    db_session.global_init(db_file)
+    session = db_session.create_session()
+    universities = session.query(University).all()
+    connection = sqlite3.connect(db_file)
+    cursor = connection.cursor()
 
-for elem in universities:
-    # image = get_image_link(elem.name)
-    image = 'link'
-    cursor.execute(f"""UPDATE university
-                    SET image = '{image}'
-                    WHERE id = '{elem.id}'""")
-    connection.commit()
+    for elem in universities:
+        # image = get_image_link(elem.name)
+        image = 'link'
+        cursor.execute(f"""UPDATE university
+                        SET image = '{image}'
+                        WHERE id = '{elem.id}'""")
+        connection.commit()
 
-connection.close()
-session.close()
+    connection.close()
+    session.close()
