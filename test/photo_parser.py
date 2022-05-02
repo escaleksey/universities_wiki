@@ -1,4 +1,5 @@
-API_KEY = 'f010ca449d644b287ac10cfe71a3ddaac00ebb81bc266fd179b03dc492ab24f2'
+API_KEYS = ['f010ca449d644b287ac10cfe71a3ddaac00ebb81bc266fd179b03dc492ab24f2',
+            '57d25683454640ad37b54ec582d6efb38aa74ea74e38c56e111fa721b59b48b5']
 
 data = ['Пермская государственная фармацевтическая академия',
         'Пермский военный институт войск национальной гвардии Российской Федерации',
@@ -19,7 +20,7 @@ def get_image_link(text):
         "q": text,
         "tbm": "isch",
         "ijn": "0",
-        "api_key": API_KEY
+        "api_key": API_KEYS[0]
     }
 
     search = GoogleSearch(params)
