@@ -1,16 +1,19 @@
+import logging
+
+from flask import Flask, render_template, redirect, make_response, jsonify
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from sqlalchemy import delete, insert
+from utils.db_api.models import association_table
+from utils.forms import RegisterForm, LoginForm
+from utils.db_api import User, University
+from utils.db_api import db_session
+from flask_restful import reqparse, abort, Api, Resource
+from resources import UniversityResource, FacultyListResource, UniversityListResource
+import requests
+import sqlite3
+
 API_KEYS = ['f010ca449d644b287ac10cfe71a3ddaac00ebb81bc266fd179b03dc492ab24f2',
             '57d25683454640ad37b54ec582d6efb38aa74ea74e38c56e111fa721b59b48b5']
-
-data = ['Пермская государственная фармацевтическая академия',
-        'Пермский военный институт войск национальной гвардии Российской Федерации',
-        'Пермский государственный гуманитарно-педагогический университет',
-        'Пермский государственный медицинский университет им. акад. Е.А. Вагнера',
-        'Пермский государственный национальный исследовательский университет',
-        'Пермский институт (филиал) Российского экономического университета имени Г.В. Плеханова',
-        'Пермский национальный исследовательский политехнический университет',
-        'Пермский филиал Национального исследовательского университета «Высшая школа экономики»',
-        'Пермский филиал Российской академии народного хозяйства и государственной службы при Президенте РФ',
-        'Уральский филиал Российской академии живописи, ваяния и зодчества Ильи Глазунова']
 
 
 def get_image_link(text):
@@ -29,5 +32,20 @@ def get_image_link(text):
     return images_results[0]['original']
 
 
-# там еще попутно сайт выведется, но на него все равно
-print(get_image_link(data[0]))
+db_file = "../db/database.db"
+db_session.global_init(db_file)
+session = db_session.create_session()
+universities = session.query(University).all()
+connection = sqlite3.connect(db_file)
+cursor = connection.cursor()
+
+for elem in universities:
+    # image = get_image_link(elem.name)
+    image = 'link'
+    cursor.execute(f"""UPDATE university
+                    SET image = '{image}'
+                    WHERE id = '{elem.id}'""")
+    connection.commit()
+
+connection.close()
+session.close()

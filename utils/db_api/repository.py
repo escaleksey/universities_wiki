@@ -4,7 +4,8 @@ import json
 
 
 def create_user():
-    user = User(name="Aleksey", email='Aleksey@gmaol.com', age='12', hashed_password='pbkdf2:sha256:260000$akY41ltT5JCrKDSc$01159880564c9762007205d247a9581c7b5da8aad4e94ffaef1290a8982a7259')
+    user = User(name="Aleksey", email='Aleksey@gmaol.com', age='12',
+                hashed_password='pbkdf2:sha256:260000$akY41ltT5JCrKDSc$01159880564c9762007205d247a9581c7b5da8aad4e94ffaef1290a8982a7259')
     university1 = University(name="PGNIU", city='Пермь')
     university2 = University(name="PHTT2", city='Пермь')
     user.universities.append(university1)
@@ -31,7 +32,7 @@ def parse_json():
             for key2, value2 in value1['programs'].items():
                 faculty = Faculty(name=value2['title'], points=value2['score'], price=value2['price'])
                 university.faculties.append(faculty)
-        #print(f'{key}: {value}')
+        # print(f'{key}: {value}')
         db.session.add(university)
         db.session.commit()
 
