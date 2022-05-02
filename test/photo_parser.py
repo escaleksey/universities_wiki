@@ -16,7 +16,7 @@ def get_image_link(text):
     from serpapi import GoogleSearch
 
     params = {
-        "q": "Apple",
+        "q": text,
         "tbm": "isch",
         "ijn": "0",
         "api_key": API_KEY
