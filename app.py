@@ -39,8 +39,24 @@ def index():
 
 @app.route('/universities/<city>')
 def universities(city):
-    params = {}
+    params = dict()
     params['universities'] = requests.get(f"http://127.0.0.1:8080/api/university_list/{city}").json()
+    params['city'] = city
+    params['input_value'] = ''
+    return render_template('list_universities.html', **params)
+
+
+@app.route('/universities/<city>/<similar>')
+def universities_similar(city, similar):
+    params = dict()
+    params['input_value'] = similar
+    list_universities = requests.get(f"http://127.0.0.1:8080/api/university_list/{city}").json()
+    params['universities'] = dict()
+    for key, val in list_universities.items():
+        if similar.lower() in val['title'].lower():
+            params['universities'][key] = val
+            print(key, val)
+
     return render_template('list_universities.html', **params)
 
 

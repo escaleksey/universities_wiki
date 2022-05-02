@@ -38,7 +38,9 @@ class UniversityListResource(Resource):
             university_dict = university[i].__dict__
             u1[i] = {
                 'id': university_dict['id'],
-                'title': university_dict['name']
+                'title': university_dict['name'],
+                # TODO: картинки!
+                'image': "https://www.newsko.ru/media/3185656/nochnaya-zhizn-pgniu.jpg"
             }
         json = jsonify(u1)
         session.close()
