@@ -28,7 +28,7 @@
             {%for value in universities.values()%}
                 <div class="university_item">
                     <a href="/university/{{value['id']}}">
-                        <img src="https://www.newsko.ru/media/3185656/nochnaya-zhizn-pgniu.jpg" alt="" class="university_photo">
+                        <img src={{value['image']}} alt="" class="university_photo">
                         <div class="text_content">
                             <div class="title">{{value['title']}}</div>
                             <div class="info"> </div>

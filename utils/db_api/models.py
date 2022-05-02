@@ -33,8 +33,8 @@ class University(db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    # address = db.Column(db.String)
     city = db.Column(db.String)
+    image = db.Column(db.String)
     faculties = db.relationship('Faculty', backref='university')
 
 
@@ -44,7 +44,7 @@ class Faculty(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     points = db.Column(db.String)
-    # description = db.Column(db.String)
+    description = db.Column(db.String)
     price = db.Column(db.String)
     university_id = db.Column(db.Integer, db.ForeignKey('university.id'))
 
