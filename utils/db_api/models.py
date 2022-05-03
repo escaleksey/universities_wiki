@@ -46,6 +46,9 @@ class Faculty(db.Model):
     points = db.Column(db.String)
     description = db.Column(db.String)
     price = db.Column(db.String)
+    subject1 = db.Column(db.String)
+    subject2 = db.Column(db.String)
+    subject3 = db.Column(db.String)
     university_id = db.Column(db.Integer, db.ForeignKey('university.id'))
 
 
