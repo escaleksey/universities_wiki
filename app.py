@@ -114,7 +114,7 @@ def profile():
 
     result = db_sess.query(User).filter(User.id == user_id).first()
     for elem in result.universities:
-        universities_data.append({'title': elem.name, 'link': f"/university/{elem.id}"})
+        universities_data.append({'title': elem.name, 'link': f"/university/{elem.id}", 'image': elem.image})
 
     params = {
         'user_id': user_id,
