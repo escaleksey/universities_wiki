@@ -20,8 +20,6 @@ class UniversityResource(Resource):
         u1 = {
             'title': university['name'],
             'city': university['city'],
-            # TODO: Спарсить адреса универов
-            'address': 'address',
         }
         json = jsonify(u1)
         session.close()
@@ -39,7 +37,6 @@ class UniversityListResource(Resource):
             u1[i] = {
                 'id': university_dict['id'],
                 'title': university_dict['name'],
-                # TODO: картинки!
                 'image': university_dict['image']
             }
         json = jsonify(u1)

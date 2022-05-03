@@ -22,9 +22,10 @@ class FacultyListResource(Resource):
                 'name': university_dict['name'],
                 'points': university_dict['points'],
                 'price': university_dict['price'],
-                'description': 'description',
-                'subjects': ['subject-1', 'subject-2', 'subject-3']
-
+                'description': university_dict['description'],
+                'subject1': university_dict['subject1'],
+                'subject2': university_dict['subject2'],
+                'subject3': university_dict['subject3']
             }
 
         json = jsonify(u1)
