@@ -9,7 +9,13 @@ body {
 .header {
     background-color: var(--active_header_color);
 }
-
+.logo {
+    width: 35%;
+}
+.authentication {
+    width: 35%;
+    text-align: right;
+}
 .logo-img {
     width: 100px;
     height: 100px;
@@ -17,6 +23,8 @@ body {
 .links {
     display: flex;
     justify-content: space-between;
+
+    
 }
 .nav-link {
     font-size: 20px;

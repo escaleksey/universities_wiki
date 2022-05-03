@@ -29,3 +29,13 @@
     color: var(--dark_text_color);
     border-radius: 0px 10px 10px 0px;
 }
+
+.cities_menu {
+    outline: none;
+    border: none;
+    margin-left: 10px;
+}
+
+.cities_menu-item {
+    border: 0px;
+}
