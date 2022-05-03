@@ -23,11 +23,11 @@ def create_user():
 
 
 def parse_json():
-    with open('../../static/json/perm_university.json') as json_file:
-        data = json.load(json_file)['PERM']
+    with open('../../static/json/yekaterinburg_university.json') as json_file:
+        data = json.load(json_file)['YEKATERINBURG']
 
     for key, value in data.items():
-        university = University(name=value['title'], city='perm')
+        university = University(name=value['title'], city='yekaterinburg')
         for key1, value1 in value['specialties'].items():
             for key2, value2 in value1['programs'].items():
                 faculty = Faculty(name=value2['title'], points=value2['score'], price=value2['price'])
