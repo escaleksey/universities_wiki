@@ -40,7 +40,7 @@ class UniversityListResource(Resource):
                 'id': university_dict['id'],
                 'title': university_dict['name'],
                 # TODO: картинки!
-                'image': "https://m.rosvuz.ru/uploads/partition120/unit/1/3035d394be7c049c67ff3a7036db851c.800_415.jpg?code=MjYwNTguODAwXzQxNQ=="
+                'image': university_dict['image']
             }
         json = jsonify(u1)
         session.close()

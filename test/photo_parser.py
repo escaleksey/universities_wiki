@@ -1,3 +1,4 @@
+import json
 import logging
 
 from flask import Flask, render_template, redirect, make_response, jsonify
@@ -13,17 +14,18 @@ import requests
 import sqlite3
 
 API_KEYS = ['f010ca449d644b287ac10cfe71a3ddaac00ebb81bc266fd179b03dc492ab24f2',
-            '57d25683454640ad37b54ec582d6efb38aa74ea74e38c56e111fa721b59b48b5']
+            '57d25683454640ad37b54ec582d6efb38aa74ea74e38c56e111fa721b59b48b5',
+            '896da93ecb3403d3793e2e2dfd4ea019879a4294b88f08bd482774f5cea194fc']
 
 
-def get_image_link(text):
+def get_image_link(text, api_key):
     from serpapi import GoogleSearch
 
     params = {
         "q": text,
         "tbm": "isch",
         "ijn": "0",
-        "api_key": API_KEYS[0]
+        "api_key": api_key
     }
 
     search = GoogleSearch(params)
@@ -40,13 +42,46 @@ def full_data_base():
     connection = sqlite3.connect(db_file)
     cursor = connection.cursor()
 
+    counter = 0
+    result_json = dict()
+    image = 'any'
     for elem in universities:
-        # image = get_image_link(elem.name)
-        image = 'link'
+        try:
+            if counter < 66:
+                image = get_image_link(elem.name, API_KEYS[0])
+            elif counter < 166:
+                image = get_image_link(elem.name, API_KEYS[1])
+            elif counter < 266:
+                image = get_image_link(elem.name, API_KEYS[2])
+            else:
+                break
+
+        except Exception:
+            with open('../static/json/images.json', 'w') as file:
+                json.dump(result_json, file)
+
+        counter += 1
+        print(f'{counter}: {elem.name}, {image}')
+
+        result_json[elem.id] = {
+            'id': elem.id,
+            'name': elem.name,
+            'city': elem.city,
+            'image': image
+        }
+
         cursor.execute(f"""UPDATE university
                         SET image = '{image}'
                         WHERE id = '{elem.id}'""")
         connection.commit()
 
+    with open('../static/json/images.json', 'w') as file:
+        json.dump(result_json, file)
+
     connection.close()
     session.close()
+
+
+if __name__ == '__main__':
+    # full_data_base()
+    pass
