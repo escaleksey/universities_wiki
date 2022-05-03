@@ -52,11 +52,13 @@
 .university_photo {
     text-align: center;
     width: 100%;
+    height: 300px;
     border-bottom: 10px solid #58807f;
 }
 
 .text_content {
-    padding: 10px 0;
+    padding: 10px 10px;
+
     color: var(--active_text_color);
 
 }
