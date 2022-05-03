@@ -6,6 +6,7 @@ from utils.db_api import db_session
 from flask_restful import Api
 from resources import UniversityResource, FacultyListResource, UniversityListResource
 import requests
+import os
 
 
 app = Flask(__name__)
@@ -35,7 +36,7 @@ def index():
 @app.route('/universities/<city>')
 def universities(city):
     params = dict()
-    params['universities'] = requests.get(f"http://127.0.0.1:8080/api/university_list/{city}").json()
+    params['universities'] = requests.get(f"http://127.0.0.1:5000/api/university_list/{city}").json()
     params['city'] = city
     params['input_value'] = ''
     return render_template('list_universities.html', **params)
@@ -45,7 +46,7 @@ def universities(city):
 def universities_similar(city, similar):
     params = dict()
     params['input_value'] = similar
-    list_universities = requests.get(f"http://127.0.0.1:8080/api/university_list/{city}").json()
+    list_universities = requests.get(f"http://127.0.0.1:5000/api/university_list/{city}").json()
     params['universities'] = dict()
     for key, val in list_universities.items():
         if similar.lower() in val['title'].lower():
@@ -79,11 +80,11 @@ def unlike(university_id):
 
 @app.route('/university/<int:university_id>')
 def university(university_id):
-    params = requests.get(f"http://127.0.0.1:8080/api/university/{university_id}").json()
+    params = requests.get(f"http://127.0.0.1:5000/api/university/{university_id}").json()
     if 'message' in params:
         return render_template('university_page.html', **params)
 
-    params['faculties'] = requests.get(f"http://127.0.0.1:8080/api/faculty/{university_id}").json()
+    params['faculties'] = requests.get(f"http://127.0.0.1:5000/api/faculty/{university_id}").json()
 
     if current_user.is_authenticated:
         session = db_session.create_session()
@@ -170,7 +171,8 @@ def main():
     api.add_resource(UniversityResource, "/api/university/<int:university_id>")
     api.add_resource(FacultyListResource, "/api/faculty/<int:university_id>")
     api.add_resource(UniversityListResource, "/api/university_list/<city>")
-    app.run(host="127.0.0.1", port=8080)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
 
 
 if __name__ == '__main__':
