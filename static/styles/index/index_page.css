@@ -17,17 +17,19 @@
 }
 .search_text_input {
     min-width: 800px;
-    min-height: 50px;
+    height: 50px;
     border-radius: 10px 0px 0px 10px;
 }
 
 .search_btn_input {
     cursor: pointer;
     min-width: 100px;
-    min-height: 50px;
+    height: 50px;
     background-color: #58807f;
     color: var(--dark_text_color);
     border-radius: 0px 10px 10px 0px;
+    border: 1px solid #ffffff;
+    border-left: 0px;
 }
 
 .cities_menu {

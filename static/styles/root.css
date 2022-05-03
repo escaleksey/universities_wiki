@@ -5,6 +5,7 @@
     --light_link_color: #242430;
     --light_text_color: #242430;
     --light_body_color: #ffffff;
+    
 
     /* dark theme */
     --dark_header_color: #242430;
@@ -12,6 +13,7 @@
     --dark_link_color: #e6eaed;
     --dark_text_color: #e6eaed;
     --dark_body_color: #2e2e3a;
+    --dark_input_color:#2f2f3680;
 
     /* active colors */
     --active_header_color: var(--light_header_color);

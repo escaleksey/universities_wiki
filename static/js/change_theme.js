@@ -16,8 +16,14 @@ function change_theme() {
         $('.cities_menu').css('color', 'var(--dark_text_color)');
         $('.faculties_item').css('color', 'var(--dark_text_color)');
         $('.profile_content').css('color', 'var(--dark_text_color)');
-
-
+        $('.input_color').css('color', 'var(--dark_text_color)');
+        $('.input_color').css('background-color', 'var(--dark_body_color)');
+        $('.input_color').css('border', '1px solid var(--dark_text_color)');
+        $('.form-control').css('color', 'var(--dark_text_color)');
+        $('.form-control').css('background-color', 'var(--dark_body_color)');
+        $('.form-control').css('border', '1px solid var(--dark_text_color)');
+        $('.search_btn_input').css('border', '1px solid #ffffff');
+        $('.search_btn_input').css('border-left', '0px');
         
     }
     else {
@@ -35,6 +41,14 @@ function change_theme() {
         $('.cities_menu').css('color', 'var(--light_text_color)');
         $('.faculties_item').css('color', 'var(--light_text_color)');
         $('.profile_content').css('color', 'var(--light_text_color)');
+        $('.input_color').css('color', 'var(--light_text_color)');
+        $('.input_color').css('background-color', 'var(--light_body_color)');
+        $('.input_color').css('border', '1px solid black');
+        $('.form-control').css('color', 'var(--light_text_color)');
+        $('.form-control').css('background-color', 'var(--light_body_color)');
+        $('.form-control').css('border', '1px solid black');
+        $('.search_btn_input').css('border', '1px solid black');
+        $('.search_btn_input').css('border-left', '0px');
     }
 
 }
@@ -62,9 +76,16 @@ function update_change_theme() {
         $('.cities_menu').css('color', 'var(--dark_text_color)');
         $('.faculties_item').css('color', 'var(--dark_text_color)');
         $('.profile_content').css('color', 'var(--dark_text_color)');
+        $('.input_color').css('color', 'var(--dark_text_color)');
+        $('.input_color').css('background-color', 'var(--dark_body_color)');
+        $('.input_color').css('border', '1px solid var(--dark_text_color)');
+        $('.form-control').css('color', 'var(--dark_text_color)');
+        $('.form-control').css('background-color', 'var(--dark_body_color)');
+        $('.form-control').css('border', '1px solid var(--dark_text_color)');
+        $('.search_btn_input').css('border', '1px solid #ffffff');
+        $('.search_btn_input').css('border-left', '0px');
 
 
-        
     }
     else {
         $('#theme_icon').attr('src', '/static/img/icons/light_theme.png');
@@ -80,6 +101,14 @@ function update_change_theme() {
         $('.cities_menu').css('color', 'var(--light_text_color)');
         $('.faculties_item').css('color', 'var(--light_text_color)');
         $('.profile_content').css('color', 'var(--light_text_color)');
+        $('.input_color').css('color', 'var(--light_text_color)');
+        $('.input_color').css('background-color', 'var(--light_body_color)');
+        $('.input_color').css('border', '1px solid black');
+        $('.form-control').css('color', 'var(--light_text_color)');
+        $('.form-control').css('background-color', 'var(--light_body_color)');
+        $('.form-control').css('border', '1px solid black');
+        $('.search_btn_input').css('border', '1px solid black');
+        $('.search_btn_input').css('border-left', '0px');
     }
 
 }
