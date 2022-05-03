@@ -1,16 +1,6 @@
 import json
-import logging
-
-from flask import Flask, render_template, redirect, make_response, jsonify
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from sqlalchemy import delete, insert
-from utils.db_api.models import association_table
-from utils.forms import RegisterForm, LoginForm
 from utils.db_api import User, University
 from utils.db_api import db_session
-from flask_restful import reqparse, abort, Api, Resource
-from resources import UniversityResource, FacultyListResource, UniversityListResource
-import requests
 import sqlite3
 
 API_KEYS = ['f010ca449d644b287ac10cfe71a3ddaac00ebb81bc266fd179b03dc492ab24f2',
@@ -57,7 +47,7 @@ def full_data_base():
                 break
 
         except Exception:
-            with open('../static/json/images.json', 'w') as file:
+            with open('../static/json/images1.json', 'w') as file:
                 json.dump(result_json, file)
 
         counter += 1
@@ -75,7 +65,7 @@ def full_data_base():
                         WHERE id = '{elem.id}'""")
         connection.commit()
 
-    with open('../static/json/images.json', 'w') as file:
+    with open('../static/json/images1.json', 'w') as file:
         json.dump(result_json, file)
 
     connection.close()

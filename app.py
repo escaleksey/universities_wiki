@@ -1,16 +1,11 @@
-import logging
-
 from flask import Flask, render_template, redirect, make_response, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from sqlalchemy import delete, insert
-from utils.db_api.models import association_table
 from utils.forms import RegisterForm, LoginForm
 from utils.db_api import User, University
 from utils.db_api import db_session
-from flask_restful import reqparse, abort, Api, Resource
+from flask_restful import Api
 from resources import UniversityResource, FacultyListResource, UniversityListResource
 import requests
-import sqlite3
 
 
 app = Flask(__name__)

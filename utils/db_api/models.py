@@ -17,7 +17,6 @@ class User(db.Model, UserMixin):
     age = db.Column(db.Integer)
     email = db.Column(db.String)
     hashed_password = db.Column(db.String, nullable=False)
-    # avatar = db.Column(db.LargeBinary, nullable=False)
     universities = db.relationship("University",
                                    secondary=association_table)
 
